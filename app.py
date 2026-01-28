@@ -18,23 +18,15 @@ from langchain_community.embeddings import HuggingFaceEmbeddings # Converts text
 
 from nltk.tokenize import sent_tokenize # Sentence splitting
 import nltk
-def download_nltk_data():
-    try:
-        nltk.data.find("tokenizers/punkt")
-    except LookupError:
-        nltk.download("punkt")
-
-    try:
-        nltk.data.find("tokenizers/punkt_tab")
-    except LookupError:
-        nltk.download("punkt_tab")
-
-download_nltk_data()
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 
 # Load environment variables 
 load_dotenv()
 
-#  Streamlit UI
+#  Streamlit UI (Sujan Ghosh)
 st.set_page_config(page_title="Chat with PDF", layout="centered")
 st.title("📄 Chat with PDF (Langchain + HuggingFace + Groq)")
 
@@ -56,7 +48,7 @@ If the answer is not in the context, say "I don't know".
 Question: {input}
 """)
 
-#  File Upload 
+#  File Upload (Sujan Ghosh)
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
 
 #  Vector Store Creation 
@@ -91,7 +83,7 @@ if uploaded_file and st.button("Create Embeddings"):
 # Question Input
 question = st.text_input("Ask a question from the PDF")
 
-# Answer Generation 
+# Answer Generation (Sujan Ghosh)
 if question and "vectors" in st.session_state:
     document_chain = create_stuff_documents_chain(llm, prompt)
 
@@ -133,3 +125,27 @@ if question and "vectors" in st.session_state:
 
 elif question:
     st.warning("Please upload a PDF and create embeddings first.")
+
+st.markdown(
+    """
+    <style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: transparent;
+        color: #6c757d;
+        text-align: center;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+    </style>
+
+    <div class="footer">
+        Developed by <strong>Sujan Ghosh</strong>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
