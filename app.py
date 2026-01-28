@@ -18,10 +18,18 @@ from langchain_community.embeddings import HuggingFaceEmbeddings # Converts text
 
 from nltk.tokenize import sent_tokenize # Sentence splitting
 import nltk
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
+def download_nltk_data():
+    try:
+        nltk.data.find("tokenizers/punkt")
+    except LookupError:
+        nltk.download("punkt")
+
+    try:
+        nltk.data.find("tokenizers/punkt_tab")
+    except LookupError:
+        nltk.download("punkt_tab")
+
+download_nltk_data()
 
 # Load environment variables 
 load_dotenv()
